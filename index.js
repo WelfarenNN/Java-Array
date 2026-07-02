@@ -853,8 +853,16 @@ function highEarners(db) {
   return db.filter((employee) => employee.salary > 90000);
 }
 console.log(highEarners(employees).length);
-console.log(highEarners(employees).map((e) => e.name).includes("Jon"));
-console.log(highEarners(employees).map((e) => e.name).includes("Omar"));
+console.log(
+  highEarners(employees)
+    .map((e) => e.name)
+    .includes("Jon"),
+);
+console.log(
+  highEarners(employees)
+    .map((e) => e.name)
+    .includes("Omar"),
+);
 
 // console.log(highEarners(employees).length);
 // TEST 1:  highEarners(employees).length                            ->  4
@@ -914,16 +922,16 @@ console.log("Array 4-7");
 // your code here
 
 function averageSalary(db) {
-    if (db.length === 0) {
-        return 0;
-    }
-    const total = db.reduce((acc, employee) => acc + employee.salary, 0);
-    const average = total / db.length;
-    return Math.round(average);
+  if (db.length === 0) {
+    return 0;
+  }
+  const total = db.reduce((acc, employee) => acc + employee.salary, 0);
+  const average = total / db.length;
+  return Math.round(average);
 }
 console.log(averageSalary(employees));
 console.log(averageSalary([{ salary: 100 }, { salary: 200 }]));
-console.log(averageSalary([{ salary: 50 }]));      
+console.log(averageSalary([{ salary: 50 }]));
 
 // console.log(averageSalary(employees));
 // TEST 1:  averageSalary(employees)                       ->  80533
@@ -938,8 +946,16 @@ function remoteWorkers(db) {
   return db.filter((employee) => employee.remote === true);
 }
 console.log(remoteWorkers(employees).length);
-console.log(remoteWorkers(employees).map((e) => e.name).includes("Sara"));
-console.log(remoteWorkers(employees).map((e) => e.name).includes("Ali"));
+console.log(
+  remoteWorkers(employees)
+    .map((e) => e.name)
+    .includes("Sara"),
+);
+console.log(
+  remoteWorkers(employees)
+    .map((e) => e.name)
+    .includes("Ali"),
+);
 
 // console.log(remoteWorkers(employees).length);
 // TEST 1:  remoteWorkers(employees).length                            ->  8
@@ -981,11 +997,22 @@ console.log(engineerNamesByPay(employees)[3]);
 // TEST 1:  engineerNamesByPay(employees)[0]       ->  "Jon"
 // TEST 2:  engineerNamesByPay(employees).length   ->  4
 // TEST 3:  engineerNamesByPay(employees)[3]       ->  "Sara"
-
+console.log("Array 4-11");
 // ----- 11. GROUP + TOTAL — object of sums (the hard one) -----
 // Write `payrollByDept(db)` -> object mapping each dept to its TOTAL salary.
 // Hint: result = {}; loop; result[e.dept] = (result[e.dept] || 0) + e.salary.
 // your code here
+
+function payrollByDept(db) {
+  const result = {};
+  db.forEach((e) => {
+    result[e.dept] = (result[e.dept] || 0) + e.salary;
+  });
+  return result;
+}
+console.log(payrollByDept(employees).engineering);
+console.log(payrollByDept(employees).support);
+console.log(payrollByDept(employees).sales);
 
 // console.log(payrollByDept(employees));
 // TEST 1:  payrollByDept(employees).engineering   ->  440000
@@ -1128,103 +1155,205 @@ const products = [
 /* ============================================================
    BUILD THE 11   (3 cases each — all must pass)
    ============================================================ */
-
+console.log("Array 5-1");
 // ----- 1. Count them (WORKED EXAMPLE) -----
+// your code here
 function countProducts(db) {
   return db.length;
 }
+console.log(countProducts(products));
+console.log(countProducts([]));
+console.log(countProducts([products[0]]));
+
 // console.log(countProducts(products)); // 15
 // TEST 1:  countProducts(products)   ->  15
 // TEST 2:  countProducts([])         ->  0
 // TEST 3:  countProducts([products[0]]) -> 1
-
+console.log("Array 5-2");
 // ----- 2. filter by category -----
 // Write `byCategory(db, cat)` -> array of products in that category.
 // your code here
+
+function byCategory(db, cat) {
+  return db.filter((product) => product.category === cat);
+}
+console.log(byCategory(products, "electronics").length);
+console.log(byCategory(products, "kitchen").length);
+console.log(byCategory(products, "toys").length);
 
 // console.log(byCategory(products, "electronics").length);
 // TEST 1:  byCategory(products,"electronics").length   ->  5
 // TEST 2:  byCategory(products,"kitchen").length       ->  3
 // TEST 3:  byCategory(products,"toys").length          ->  0
-
+console.log("Array 5-3");
 // ----- 3. filter + condition — in stock -----
 // Write `inStock(db)` -> products with stock > 0.
 // your code here
+
+function inStock(db) {
+  return db.filter((product) => product.stock > 0);
+}
+console.log(inStock(products).length);
+console.log(
+  inStock(products)
+    .map((p) => p.name)
+    .includes("Pen"),
+);
+console.log(
+  inStock(products)
+    .map((p) => p.name)
+    .includes("Blender"),
+);
 
 // console.log(inStock(products).length);
 // TEST 1:  inStock(products).length                            ->  14
 // TEST 2:  inStock(products).map(p => p.name).includes("Pen")  ->  true
 // TEST 3:  inStock(products).map(p => p.name).includes("Blender") -> false
-
+console.log("Array 5-4");
 // ----- 4. map — just the names -----
 // Write `allNames(db)` -> array of every product name.
 // your code here
+
+function allNames(db) {
+  return db.map((product) => product.name);
+}
+console.log(allNames(products)[0]);
+console.log(allNames(products).length);
+console.log(allNames(products)[14]);
 
 // console.log(allNames(products)[0]);
 // TEST 1:  allNames(products)[0]       ->  "Laptop"
 // TEST 2:  allNames(products).length   ->  15
 // TEST 3:  allNames(products)[14]      ->  "Blender"
-
+console.log("Array 5-5");
 // ----- 5. find by name -----
 // Write `findProduct(db, name)` -> the one object, or undefined.
 // your code here
+
+function findProduct(db, name) {
+  return db.find((product) => product.name === name);
+}
+console.log(findProduct(products, "Watch").price);
+console.log(findProduct(products, "Watch").rating);
+console.log(findProduct(products, "Nope"));
 
 // console.log(findProduct(products, "Watch").price);
 // TEST 1:  findProduct(products,"Watch").price    ->  250
 // TEST 2:  findProduct(products,"Watch").rating   ->  4.8
 // TEST 3:  findProduct(products,"Nope")           ->  undefined
-
+console.log("Array 5-6");
 // ----- 6. reduce — total stock -----
 // Write `totalStock(db)` -> sum of every product's stock.
 // your code here
+
+function totalStock(db) {
+  return db.reduce((acc, product) => acc + product.stock, 0);
+}
+console.log(totalStock(products));
+console.log(totalStock([]));
+console.log(totalStock([{ stock: 3 }, { stock: 4 }]));
 
 // console.log(totalStock(products));
 // TEST 1:  totalStock(products)          ->  1095
 // TEST 2:  totalStock([])                ->  0
 // TEST 3:  totalStock([{stock:3},{stock:4}]) -> 7
-
+console.log("Array 5-7");
 // ----- 7. filter boolean — on sale -----
 // Write `onSaleItems(db)` -> products where onSale is true.
 // your code here
+
+function onSaleItems(db) {
+  return db.filter((product) => product.onSale === true);
+}
+console.log(onSaleItems(products).length);
+console.log(
+  onSaleItems(products)
+    .map((p) => p.name)
+    .includes("Phone"),
+);
+console.log(
+  onSaleItems(products)
+    .map((p) => p.name)
+    .includes("Laptop"),
+);
 
 // console.log(onSaleItems(products).length);
 // TEST 1:  onSaleItems(products).length                             ->  7
 // TEST 2:  onSaleItems(products).map(p => p.name).includes("Phone") ->  true
 // TEST 3:  onSaleItems(products).map(p => p.name).includes("Laptop")-> false
-
+console.log("Array 5-8");
 // ----- 8. filter + condition — expensive -----
 // Write `expensive(db)` -> products with price > 200.
 // your code here
+
+function expensive(db) {
+  return db.filter((product) => product.price > 200);
+}
+console.log(expensive(products).length);
+console.log(
+  expensive(products)
+    .map((p) => p.name)
+    .includes("Watch"),
+);
+console.log(
+  expensive(products)
+    .map((p) => p.name)
+    .includes("Lamp"),
+);
 
 // console.log(expensive(products).length);
 // TEST 1:  expensive(products).length                              ->  5
 // TEST 2:  expensive(products).map(p => p.name).includes("Watch")  ->  true
 // TEST 3:  expensive(products).map(p => p.name).includes("Lamp")   ->  false
-
+console.log("Array 5-9");
 // ----- 9. sort — cheapest first -----
 // Write `cheapest(db)` -> NEW array sorted by price, lowest first.
 // Hint: [...db].sort((a,b) => a.price - b.price)
 // your code here
 
+function cheapest(db) {
+  return [...db].sort((a, b) => a.price - b.price);
+}
+console.log(cheapest(products)[0].name);
+console.log(cheapest(products)[0].price);
+console.log(cheapest(products)[14].name);
+
 // console.log(cheapest(products)[0].name);
 // TEST 1:  cheapest(products)[0].name     ->  "Pen"
 // TEST 2:  cheapest(products)[0].price    ->  2
 // TEST 3:  cheapest(products)[14].name    ->  "Laptop"
-
+console.log("Array 5-10");
 // ----- 10. chain — filter + sort + map -----
 // Write `electronicsOnSaleByPrice(db)` -> electronics that are on sale,
 // sorted most-expensive first, names only.
 // your code here
 
+function electronicsOnSaleByPrice(db) {
+  return db
+    .filter((product) => product.category === "electronics" && product.onSale)
+    .sort((a, b) => b.price - a.price)
+    .map((product) => product.name);
+}
+console.log(electronicsOnSaleByPrice(products)[0]);
+console.log(electronicsOnSaleByPrice(products).length);
+console.log(electronicsOnSaleByPrice(products)[2]);
+
 // console.log(electronicsOnSaleByPrice(products));
 // TEST 1:  electronicsOnSaleByPrice(products)[0]       ->  "Phone"
 // TEST 2:  electronicsOnSaleByPrice(products).length   ->  3
 // TEST 3:  electronicsOnSaleByPrice(products)[2]       ->  "Headphones"
-
+console.log("Array 5-11");
 // ----- 11. reduce TWO fields — inventory value (the hard one) -----
 // Write `inventoryValue(db)` -> sum of (price * stock) across all products.
 // Hint: db.reduce((acc, p) => acc + p.price * p.stock, 0)
 // your code here
+
+function inventoryValue(db) {
+  return db.reduce((acc, product) => acc + product.price * product.stock, 0);
+}
+console.log(inventoryValue(products));
+console.log(inventoryValue([]));
+console.log(inventoryValue([{ price: 10, stock: 2 }]));
 
 // console.log(inventoryValue(products));
 // TEST 1:  inventoryValue(products)                  ->  43940
@@ -1313,119 +1442,262 @@ const players = Array.from({ length: 187 }, (_, i) => {
 /* ============================================================
    BUILD THE 12   (3 cases each — all must pass)
    ============================================================ */
-
+console.log("Array 6-1");
 // ----- 1. bucket per key (WORKED EXAMPLE) -----
 // Group players into { position: [those players] }.
+// your code here
 function groupByPosition(db) {
   return db.reduce((acc, p) => {
     (acc[p.position] ||= []).push(p);
     return acc;
   }, {});
 }
+console.log(groupByPosition(players).GK.length);
+console.log(groupByPosition(players).DEF.length);
+console.log(Object.keys(groupByPosition(players)).length);
+
 // console.log(groupByPosition(players).GK.length); // 38
 // TEST 1:  groupByPosition(players).GK.length            ->  38
 // TEST 2:  groupByPosition(players).DEF.length           ->  56
 // TEST 3:  Object.keys(groupByPosition(players)).length  ->  4
-
+console.log("Array 6-2");
 // ----- 2. count per key — clubs -----
 // Write `countByClub(db)` -> { club: howMany players }.
 // your code here
+
+function countByClub(db) {
+  return db.reduce((acc, p) => {
+    acc[p.club] = (acc[p.club] || 0) + 1;
+    return acc;
+  }, {});
+}
+console.log(countByClub(players).Madrid);
+console.log(countByClub(players).Liverpool);
+console.log(Object.keys(countByClub(players)).length);
 
 // console.log(countByClub(players).Madrid);
 // TEST 1:  countByClub(players).Madrid             ->  24
 // TEST 2:  countByClub(players).Liverpool          ->  23
 // TEST 3:  Object.keys(countByClub(players)).length ->  8
-
+console.log("Array 6-3");
 // ----- 3. count per key — positions -----
 // Write `countByPosition(db)` -> { position: howMany }.
 // your code here
+
+function countByPosition(db) {
+  return db.reduce((acc, p) => {
+    acc[p.position] = (acc[p.position] || 0) + 1;
+    return acc;
+  }, {});
+}
+console.log(countByPosition(players).GK);
+console.log(countByPosition(players).MID);
+console.log(countByPosition(players).FWD);
 
 // console.log(countByPosition(players).MID);
 // TEST 1:  countByPosition(players).GK    ->  38
 // TEST 2:  countByPosition(players).MID   ->  56
 // TEST 3:  countByPosition(players).FWD   ->  37
-
+console.log("Array 6-4");
 // ----- 4. sum per key — goals per nation -----
 // Write `goalsByNation(db)` -> { nation: total goals }.
 // your code here
+
+function goalsByNation(db) {
+  return db.reduce((acc, p) => {
+    acc[p.nation] = (acc[p.nation] || 0) + p.goals;
+    return acc;
+  }, {});
+}
+
+console.log(goalsByNation(players).Portugal);
+console.log(goalsByNation(players).Germany);
+console.log(goalsByNation(players).Brazil);
 
 // console.log(goalsByNation(players).Portugal);
 // TEST 1:  goalsByNation(players).Portugal   ->  456
 // TEST 2:  goalsByNation(players).Germany    ->  343
 // TEST 3:  goalsByNation(players).Brazil     ->  348
-
+console.log("Array 6-5");
 // ----- 5. sum per key — squad value per club -----
 // Write `valueByClub(db)` -> { club: total value }.
 // your code here
+
+function valueByClub(db) {
+  return db.reduce((acc, p) => {
+    acc[p.club] = (acc[p.club] || 0) + p.value;
+    return acc;
+  }, {});
+}
+console.log(valueByClub(players).Liverpool);
+console.log(valueByClub(players).Madrid);
+console.log(valueByClub(players).City);
 
 // console.log(valueByClub(players).Liverpool);
 // TEST 1:  valueByClub(players).Liverpool   ->  2770
 // TEST 2:  valueByClub(players).Madrid      ->  2196
 // TEST 3:  valueByClub(players).City        ->  2599
-
+console.log("Array 6-6");
 // ----- 6. group THEN average — rating per position -----
 // Write `avgRatingByPosition(db)` -> { position: avg rating, Math.round }.
 // Hint: groupByPosition first, then Object.fromEntries(Object.entries(...).map(...)).
 // your code here
 
+function avgRatingByPosition(db) {
+  const grouped = groupByPosition(db);
+  return Object.fromEntries(
+    Object.entries(grouped).map(([position, players]) => {
+      const avgRating =
+        players.reduce((acc, p) => acc + p.rating, 0) / players.length;
+      return [position, Math.round(avgRating)];
+    }),
+  );
+}
+console.log(avgRatingByPosition(players).FWD);
+console.log(avgRatingByPosition(players).GK);
+console.log(avgRatingByPosition(players).DEF);
+
 // console.log(avgRatingByPosition(players).FWD);
 // TEST 1:  avgRatingByPosition(players).FWD   ->  84
 // TEST 2:  avgRatingByPosition(players).GK    ->  76
 // TEST 3:  avgRatingByPosition(players).DEF   ->  78
-
+console.log("Array 6-7");
 // ----- 7. group THEN pick max — best player per position -----
 // Write `bestByPosition(db)` -> { position: NAME of highest-rated player }.
 // Hint: per group, v.reduce((best,p) => p.rating > best.rating ? p : best).name
 // your code here
 
+function bestByPosition(db) {
+  const grouped = groupByPosition(db);
+  return Object.fromEntries(
+    Object.entries(grouped).map(([position, players]) => {
+      const bestPlayer = players.reduce((best, p) =>
+        p.rating > best.rating ? p : best,
+      );
+      return [position, bestPlayer.name];
+    }),
+  );
+}
+console.log(bestByPosition(players).FWD);
+console.log(bestByPosition(players).DEF);
+console.log(bestByPosition(players).GK);
+
 // console.log(bestByPosition(players).FWD);
 // TEST 1:  bestByPosition(players).FWD   ->  "Player 8"
 // TEST 2:  bestByPosition(players).DEF   ->  "Player 3"
 // TEST 3:  bestByPosition(players).GK    ->  "Player 24"
-
+console.log("Array 6-8");
 // ----- 8. count into custom buckets — age brackets -----
 // Write `countByAgeBracket(db)` -> { u21, prime, vet }.
 //   age <= 21 -> "u21",  22..29 -> "prime",  30+ -> "vet"
 // Hint: compute the bracket string, then the same count pattern.
 // your code here
 
+function countByAgeBracket(db) {
+  return db.reduce((acc, p) => {
+    let bracket;
+    if (p.age <= 21) {
+      bracket = "u21";
+    } else if (p.age <= 29) {
+      bracket = "prime";
+    } else {
+      bracket = "vet";
+    }
+    acc[bracket] = (acc[bracket] || 0) + 1;
+    return acc;
+  }, {});
+}
+console.log(countByAgeBracket(players).u21);
+console.log(countByAgeBracket(players).prime);
+console.log(countByAgeBracket(players).vet);
+
 // console.log(countByAgeBracket(players));
 // TEST 1:  countByAgeBracket(players).u21     ->  37
 // TEST 2:  countByAgeBracket(players).prime   ->  74
 // TEST 3:  countByAgeBracket(players).vet     ->  76
-
+console.log("Array 6-9");
 // ----- 9. group -> entries -> filter — clubs with a big squad -----
 // Write `clubsWithAtLeast(db, n)` -> array of club names having n+ players.
 // Hint: Object.entries(countByClub(db)).filter(([,c]) => c >= n).map(([k]) => k)
 // your code here
 
+function clubsWithAtLeast(db, n) {
+  return Object.entries(countByClub(db))
+    .filter(([, count]) => count >= n)
+    .map(([club]) => club);
+}
+console.log(clubsWithAtLeast(players, 24).length);
+console.log(clubsWithAtLeast(players, 23).length);
+console.log(clubsWithAtLeast(players, 99).length);
+
 // console.log(clubsWithAtLeast(players, 24));
 // TEST 1:  clubsWithAtLeast(players, 24).length   ->  3
 // TEST 2:  clubsWithAtLeast(players, 23).length   ->  8
 // TEST 3:  clubsWithAtLeast(players, 99).length   ->  0
-
+console.log("Array 6-10");
 // ----- 10. group -> entries -> sort -> map — leaderboard -----
 // Write `nationsByGoals(db)` -> nation names sorted by total goals, most first.
 // your code here
+
+function nationsByGoals(db) {
+  return Object.entries(goalsByNation(db))
+    .sort(([, goalsA], [, goalsB]) => goalsB - goalsA)
+    .map(([nation]) => nation);
+}
+console.log(nationsByGoals(players)[0]);
+console.log(nationsByGoals(players)[7]);
+console.log(nationsByGoals(players).length);
 
 // console.log(nationsByGoals(players)[0]);
 // TEST 1:  nationsByGoals(players)[0]       ->  "Portugal"
 // TEST 2:  nationsByGoals(players)[7]       ->  "Germany"
 // TEST 3:  nationsByGoals(players).length   ->  8
-
+console.log("Array 6-11");
 // ----- 11. group -> entries -> sort -> take one — the winner -----
 // Write `richestClub(db)` -> the single club name with the highest total value.
 // your code here
+
+function richestClub(db) {
+  return Object.entries(valueByClub(db)).sort(
+    ([, valueA], [, valueB]) => valueB - valueA,
+  )[0][0];
+}
+console.log(richestClub(players));
+console.log(richestClub([{ club: "X", value: 5 }]));
+console.log(
+  richestClub([
+    { club: "A", value: 1 },
+    { club: "B", value: 9 },
+  ]),
+);
 
 // console.log(richestClub(players));
 // TEST 1:  richestClub(players)                       ->  "Liverpool"
 // TEST 2:  richestClub([{club:"X",value:5}])          ->  "X"
 // TEST 3:  richestClub([{club:"A",value:1},{club:"B",value:9}]) -> "B"
-
+console.log("Array 6-12");
 // ----- 12. NESTED report — object of objects (the hard one) -----
 // Write `positionReport(db)` -> { position: { count, avgRating, totalGoals } }.
 // Group once, then map each group to its three stats. Real dashboards look exactly like this.
 // your code here
+
+function positionReport(db) {
+  const grouped = groupByPosition(db);
+  return Object.fromEntries(
+    Object.entries(grouped).map(([position, players]) => {
+      const count = players.length;
+      const avgRating = players.reduce((acc, p) => acc + p.rating, 0) / count;
+      const totalGoals = players.reduce((acc, p) => acc + p.goals, 0);
+      return [
+        position,
+        { count, avgRating: Math.round(avgRating), totalGoals },
+      ];
+    }),
+  );
+}
+console.log(positionReport(players).FWD.count);
+console.log(positionReport(players).MID.avgRating);
+console.log(positionReport(players).DEF.totalGoals);
 
 // console.log(positionReport(players).FWD);
 // TEST 1:  positionReport(players).FWD.count       ->  37
